@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ -z "$1" ];then
+    echo "usage: $0 path | install "
+elif [ "path" = $1 ];then
+    LUA_VER=`lua -v | cut -c 5-9`
+    if [ "5.3.3" != "$LUA_VER" ];then
+        echo "current lua: $LUA_VER, changed it to 5.3.3"
+        CUR_PATH=`pwd`
+        LUA_PATH=$CUR_PATH/3rd/skynet/3rd/lua
+        export PATH=$LUA_PATH:$PATH
+    fi
+elif [ "install" == $1 ];then
+    echo "install lunitx and cp lua 5.2 library as 5.3"
+    luarocks install ./3rd/lunit/rockspecs/lunitx-0.8-0.rockspec
+    cp -R /usr/local/share/lua/5.2 /usr/local/share/lua/5.3
+fi
+

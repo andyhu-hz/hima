@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ "$1" = "start" ];then
+    echo "... Start Hima server ...  "
+    cd ./3rd/skynet && ./skynet ../../config
+    #cd ./3rd/skynet && nohup ./3rd/skynet ../config &
+elif [ "$1" = "stop" ];then
+    kill -9 `cat ./3rd/skynet/skynet.pid`
+    rm -rf ./3rd/skynet/skynet.pid
+    echo "... Stop Hima server ...  "
+elif [ "$1" = "state" ];then
+    ps -xwj | grep skynet
+else
+    echo "Useage: ./run start|stop"
+fi
+
+
+
